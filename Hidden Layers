@@ -13,3 +13,35 @@ ax.scatter(features[0], features[1], labels)
 ax.set_xlabel('x1')
 ax.set_ylabel('x2')
 ax.set_zlabel('y')
+
+from sklearn.neural_network import MLPClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+np.random.seed(8)
+
+data = make_moons(100, random_state=3, noise=0.04)
+features = pd.DataFrame(data[0])
+labels = pd.Series(data[1])
+features["bias"] = 1
+
+shuffled_index = np.random.permutation(features.index)
+shuffled_data = features.loc[shuffled_index]
+shuffled_labels = labels.loc[shuffled_index]
+mid_length = int(len(shuffled_data)/2)
+train_features = shuffled_data.iloc[0:mid_length]
+test_features = shuffled_data.iloc[mid_length:len(shuffled_data)]
+train_labels = shuffled_labels.iloc[0:mid_length]
+test_labels = shuffled_labels.iloc[mid_length: len(labels)]
+mlp = MLPClassifier(hidden_layer_sizes=(1,), activation='logistic')
+mlp.fit(train_features, train_labels)
+nn_predictions = mlp.predict(test_features)
+
+lr = LogisticRegression()
+lr.fit(train_features, train_labels)
+log_predictions = lr.predict(test_features)
+
+nn_accuracy = accuracy_score(test_labels, nn_predictions)
+log_accuracy = accuracy_score(test_labels, log_predictions)
+
+print("Logistic Regression Model Accuracy: ", log_accuracy)
+print("Single Neuron Single Layer NN Model Accuracy: ", nn_accuracy)
