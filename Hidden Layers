@@ -45,3 +45,25 @@ log_accuracy = accuracy_score(test_labels, log_predictions)
 
 print("Logistic Regression Model Accuracy: ", log_accuracy)
 print("Single Neuron Single Layer NN Model Accuracy: ", nn_accuracy)
+
+
+np.random.seed(8)
+shuffled_index = np.random.permutation(features.index)
+shuffled_data = features.loc[shuffled_index]
+shuffled_labels = labels.loc[shuffled_index]
+mid_length = int(len(shuffled_data)/2)
+train_features = shuffled_data.iloc[0:mid_length]
+test_features = shuffled_data.iloc[mid_length:len(shuffled_data)]
+train_labels = shuffled_labels.iloc[0:mid_length]
+test_labels = shuffled_labels.iloc[mid_length: len(labels)]
+neurons = [1, 5, 10, 15, 20, 25]
+accuracies = []
+
+for n in neurons:
+    mlp = MLPClassifier(hidden_layer_sizes=(n,), activation='logistic')
+    mlp.fit(train_features, train_labels)
+    nn_predictions = mlp.predict(test_features)
+    accuracy = accuracy_score(test_labels, nn_predictions)
+    accuracies.append(accuracy)
+    
+print(accuracies)
