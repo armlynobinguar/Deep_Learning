@@ -1,0 +1,15 @@
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn.datasets import make_moons
+import pandas as pd
+import matplotlib.pyplot as plt
+data = make_moons(100, random_state=3, noise=0.04)
+features = pd.DataFrame(data[0])
+labels = pd.Series(data[1])
+
+fig = plt.figure(figsize=(8,8))
+ax = fig.add_subplot(111, projection='3d')
+
+ax.scatter(features[0], features[1], labels)
+ax.set_xlabel('x1')
+ax.set_ylabel('x2')
+ax.set_zlabel('y')
