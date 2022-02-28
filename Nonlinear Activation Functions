@@ -1,0 +1,13 @@
+import matplotlib.pyplot as plt
+
+import numpy as np
+x = np.linspace(-2, 2, 20)
+def relu(values):
+    return np.maximum(values, 0)
+
+relu_y = relu(x)
+
+print(x)
+print(relu_y)
+
+plt.plot(x, relu_y)
