@@ -30,3 +30,28 @@ def feedforward(features, weights):
 
 train_weights = train(features, labels)
 linear_predictions = feedforward(features, train_weights)
+
+from sklearn.datasets import make_regression
+import numpy as np
+data = make_regression(n_samples=100, n_features=3, random_state=1)
+features = pd.DataFrame(data[0])
+labels = pd.Series(data[1])
+
+# Uncomment after you've implemented train() and feedforward()
+# train_weights = train(features, labels)
+# linear_predictions = feedforward(features, train_weights)
+from sklearn.linear_model import SGDRegressor
+features["bias"] = 1
+
+def train(features, labels):
+    lr = SGDRegressor()
+    lr.fit(features, labels)
+    weights = lr.coef_
+    return weights
+    
+def feedforward(features, weights):
+    predictions = np.dot(features, weights.T)
+    return predictions
+
+train_weights = train(features, labels)
+linear_predictions = feedforward(features, train_weights)
