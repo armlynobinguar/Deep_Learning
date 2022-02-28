@@ -67,3 +67,17 @@ for n in neurons:
     accuracies.append(accuracy)
     
 print(accuracies)
+
+neurons = [1, 5, 10, 15, 20, 25]
+nn_accuracies = []
+
+for n in neurons:
+    mlp = MLPClassifier(hidden_layer_sizes=(n,n), activation='relu', max_iter=1000)
+    
+    mlp.fit(train_features, train_labels)
+    nn_predictions = mlp.predict(test_features)
+    
+    accuracy = accuracy_score(test_labels, nn_predictions)
+    nn_accuracies.append(accuracy)
+
+print(nn_accuracies)
