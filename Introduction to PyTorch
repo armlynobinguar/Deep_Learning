@@ -501,3 +501,14 @@ class Net(nn.Module):
         
         # Implement the fully connected layer for classification
         self.fc = nn.Linear(in_features=7*7*20, out_features=10)
+	
+	# Create a new model
+model = Net()
+
+# Change the number of output units
+model.fc = nn.Linear(7 * 7 * 512, 26)
+
+# Train and evaluate the model
+model.train()
+train_net(model, optimizer, criterion)
+print("Accuracy of the net is: " + str(model.eval()))
