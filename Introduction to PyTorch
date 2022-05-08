@@ -449,3 +449,12 @@ train_loader = torch.utils.data.DataLoader(datasets.MNIST('mnist', download=True
 val_loader = torch.utils.data.DataLoader(datasets.MNIST('mnist', download=True, train=True,
                    transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])),
                    batch_size=64, shuffle=False, sampler=torch.utils.data.SubsetRandomSampler(indices[55000:]))
+		   
+		   # Instantiate the network
+model = Net()
+
+# Instantiate the cross-entropy loss
+criterion = nn.CrossEntropyLoss()
+
+# Instantiate the Adam optimizer
+optimizer = optim.Adam(model.parameters(), lr=3e-4, weight_decay=0.001)
