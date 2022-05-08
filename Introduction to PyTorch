@@ -512,3 +512,17 @@ model.fc = nn.Linear(7 * 7 * 512, 26)
 model.train()
 train_net(model, optimizer, criterion)
 print("Accuracy of the net is: " + str(model.eval()))
+
+# Create a new model
+model = Net()
+
+# Load the parameters from the old model
+model.load_state_dict(torch.load('my_net.pth'))
+
+# Change the number of out channels
+model.fc = nn.Linear(7 * 7 * 512, 26)
+
+# Train and evaluate the model
+model.train()
+train_net(model, optimizer, criterion)
+print("Accuracy of the net is: " + str(model.eval()))
