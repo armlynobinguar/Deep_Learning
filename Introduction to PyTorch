@@ -55,3 +55,14 @@ f.backward()
 print("Gradient of x is: " + str(x.grad))
 print("Gradient of y is: " + str(y.grad))
 print("Gradient of z is: " + str(z.grad))
+
+# Multiply tensors x and y
+q = torch.matmul(x, y)
+
+# Elementwise multiply tensors z with q
+f = z * q
+
+mean_f = torch.mean(f)
+
+# Calculate the gradients
+mean_f.backward()
